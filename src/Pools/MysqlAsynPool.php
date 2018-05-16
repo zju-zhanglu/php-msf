@@ -37,6 +37,11 @@ class MysqlAsynPool extends AsynPool
      * @var array 绑定的连接映射表
      */
     public $bindPool;
+    
+    /**
+     * @var string
+     */
+    public $profile = \PG\MSF\Macro::PROFILE_MYSQL_DETAIL;
 
     /**
      * MysqlAsynPool constructor.
@@ -47,6 +52,9 @@ class MysqlAsynPool extends AsynPool
     public function __construct($config, $active)
     {
         parent::__construct($config, $active);
+        if (!empty($config['profile'])) {
+            $this->profile = $config['profile'];
+        }
         $this->bindPool       = [];
     }
 

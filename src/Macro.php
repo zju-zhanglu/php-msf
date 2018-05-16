@@ -27,6 +27,21 @@ class Macro
      * 主从模式
      */
     const MASTER_SLAVE                              = 1;
+    
+    /**
+     * 不打profile
+     */
+    const PROFILE_MYSQL_NONE                        = 0;
+    
+    /**
+     * 简洁profile
+     */
+    const PROFILE_MYSQL_BRIEF                       = 1;
+    
+    /**
+     * 详细profile
+     */
+    const PROFILE_MYSQL_DETAIL                      = 2;
 
     /**
      * Server统计key

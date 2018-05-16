@@ -1906,7 +1906,12 @@ class Miner
             $sql = $this->getStatement(false);
         }
         if (getInstance()->processType == \PG\MSF\Macro::PROCESS_TASKER) {//如果是task进程自动转换为同步模式
-            $profileName = $this->mysqlPool->getAsynName() . '(' . str_replace("\n", " ", $sql) . ')';
+            $profileName = '';
+            if ($this->mysqlPool->profile == \PG\MSF\Macro::PROFILE_MYSQL_DETAIL) {
+                $profileName = $this->mysqlPool->getAsynName() . '(' . str_replace("\n", " ", $sql) . ')';
+            } elseif ($this->mysqlPool->profile == \PG\MSF\Macro::PROFILE_MYSQL_BRIEF) {
+                $profileName = $this->mysqlPool->getAsynName();
+            }
             $this->getContext()->getLog()->profileStart($profileName);
 
             $this->mergeInto($this->mysqlPool->getSync($this->getContext()));

@@ -30,6 +30,11 @@ class MySql extends Base
      * @var string|null 执行的SQL
      */
     public $sql;
+    
+    /**
+     * @var string
+     */
+    public $profileName = '';
 
     /**
      * MySql constructor.
@@ -47,8 +52,14 @@ class MySql extends Base
         $this->request       = $this->mysqlAsynPool->getAsynName() . '(' . str_replace("\n", " ", $_sql) . ')';
         $this->requestId     = $this->getContext()->getRequestId();
         $requestId           = $this->requestId;
-
-        $this->getContext()->getLog()->profileStart($this->request);
+        
+        if ($this->mysqlAsynPool->profile == \PG\MSF\Macro::PROFILE_MYSQL_DETAIL) {
+            $this->profileName = $this->mysqlAsynPool->getAsynName() . '(' . str_replace("\n", " ", $_sql) . ')';
+        } elseif ($this->mysqlAsynPool->profile == \PG\MSF\Macro::PROFILE_MYSQL_BRIEF) {
+            $this->profileName = $this->mysqlAsynPool->getAsynName();
+        }
+        
+        $this->getContext()->getLog()->profileStart($this->profileName);
         getInstance()->scheduler->IOCallBack[$this->requestId][] = $this;
         $keys            = array_keys(getInstance()->scheduler->IOCallBack[$this->requestId]);
         $this->ioBackKey = array_pop($keys);
@@ -66,7 +77,7 @@ class MySql extends Base
                 return;
             }
 
-            $this->getContext()->getLog()->profileEnd($this->request);
+            $this->getContext()->getLog()->profileEnd($this->profileName);
             $this->result = $result;
             $this->ioBack = true;
             $this->nextRun();
