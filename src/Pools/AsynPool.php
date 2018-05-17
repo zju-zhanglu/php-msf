@@ -216,7 +216,7 @@ abstract class AsynPool implements IAsynPool
      */
     public function getAsynName()
     {
-        return self::ASYN_NAME  . '.' . $this->active;
+        return static::ASYN_NAME  . '.' . $this->active;
     }
 
     /**
