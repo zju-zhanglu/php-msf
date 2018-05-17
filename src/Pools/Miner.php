@@ -1907,9 +1907,9 @@ class Miner
         }
         if (getInstance()->processType == \PG\MSF\Macro::PROCESS_TASKER) {//如果是task进程自动转换为同步模式
             $profileName = '';
-            if ($this->mysqlPool->profile == \PG\MSF\Macro::PROFILE_MYSQL_DETAIL) {
+            if ($this->mysqlPool->getProfileConfig() == \PG\MSF\Macro::PROFILE_MYSQL_DETAIL) {
                 $profileName = $this->mysqlPool->getAsynName() . '(' . str_replace("\n", " ", $sql) . ')';
-            } elseif ($this->mysqlPool->profile == \PG\MSF\Macro::PROFILE_MYSQL_BRIEF) {
+            } elseif ($this->mysqlPool->getProfileConfig() == \PG\MSF\Macro::PROFILE_MYSQL_BRIEF) {
                 $profileName = $this->mysqlPool->getAsynName();
             }
             $this->getContext()->getLog()->profileStart($profileName);

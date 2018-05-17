@@ -53,9 +53,9 @@ class MySql extends Base
         $this->requestId     = $this->getContext()->getRequestId();
         $requestId           = $this->requestId;
         
-        if ($this->mysqlAsynPool->profile == \PG\MSF\Macro::PROFILE_MYSQL_DETAIL) {
+        if ($this->mysqlAsynPool->getProfileConfig() == \PG\MSF\Macro::PROFILE_MYSQL_DETAIL) {
             $this->profileName = $this->mysqlAsynPool->getAsynName() . '(' . str_replace("\n", " ", $_sql) . ')';
-        } elseif ($this->mysqlAsynPool->profile == \PG\MSF\Macro::PROFILE_MYSQL_BRIEF) {
+        } elseif ($this->mysqlAsynPool->getProfileConfig() == \PG\MSF\Macro::PROFILE_MYSQL_BRIEF) {
             $this->profileName = $this->mysqlAsynPool->getAsynName();
         }
         

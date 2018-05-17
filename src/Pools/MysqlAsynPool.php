@@ -39,11 +39,6 @@ class MysqlAsynPool extends AsynPool
     public $bindPool;
     
     /**
-     * @var string
-     */
-    public $profile = \PG\MSF\Macro::PROFILE_MYSQL_DETAIL;
-
-    /**
      * MysqlAsynPool constructor.
      *
      * @param Config $config 配置对象
@@ -52,9 +47,6 @@ class MysqlAsynPool extends AsynPool
     public function __construct($config, $active)
     {
         parent::__construct($config, $active);
-        if (!empty($config['profile'])) {
-            $this->profile = $config['profile'];
-        }
         $this->bindPool       = [];
     }
 
@@ -357,5 +349,15 @@ class MysqlAsynPool extends AsynPool
         } else {
             return $client;
         }
+    }
+    
+    /**
+     * 获取profile日志配置
+     * 
+     * @return number
+     */
+    public function getProfileConfig()
+    {
+        return $this->config['mysql'][$this->active]['profile'] ?? \PG\MSF\Macro::PROFILE_MYSQL_DETAIL;
     }
 }
