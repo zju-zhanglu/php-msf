@@ -38,6 +38,7 @@ class Input extends Core
         $this->__serializeRequest->cookie  = $this->request->cookie ?? [];
         $this->__serializeRequest->header  = $this->request->header ?? [];
         $this->__serializeRequest->server  = $this->request->server ?? [];
+        $this->__serializeRequest->rawContent  = $this->getRawContent() ?? [];
 
         return ['__serializeRequest'];
     }
@@ -178,7 +179,7 @@ class Input extends Core
      */
     public function getRawContent()
     {
-        return $this->request->rawContent();
+        return $this->request->rawContent ?? $this->request->rawContent();
     }
 
     /**
