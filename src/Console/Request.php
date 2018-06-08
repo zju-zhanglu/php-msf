@@ -96,4 +96,9 @@ class Request
 
         return [$route, $params];
     }
+    
+    public function rawContent()
+    {
+        return '';
+    }
 }
